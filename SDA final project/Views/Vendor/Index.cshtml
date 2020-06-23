@@ -1,0 +1,78 @@
+﻿@model IEnumerable<HabeebFootwear.Models.Vendor>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <a href="/Vendor/Create" class="btn btn-block btn-success btn-lg">Create Vendor</a>
+    </div>
+</div>
+<br />
+<div class="box box-primary">
+    <div class="box-header with-border" style="padding-bottom:0px;">
+        <div class="jumbotron" style="padding-bottom:0px;padding-top:0px; background-color:white;">
+            <center>
+                <h2 style="font-family:Arial;font-size:35px;font-weight:bold;">Vendors List</h2>
+
+            </center>
+        </div>
+    </div>
+
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="table-responsive">
+            <div class="col-md-12">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Vendor Id</th>
+                            <th>Vendor Name</th>
+                            <th>Vendor Company</th>
+                            <th>Vendor Contact No</th>
+                            <th>Vendor Address</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            if (item.DeleteStatus == 0)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.vendor_Id)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.vendorName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.vendorCompany)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.vendorContactNo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.vendorAddress)
+                                    </td>
+                                    <td>
+                                        <a href="/Vendor/Edit?id=@item.vendor_Id" class="btn btn-default btn-primary"><span style="color:white" class="glyphicon glyphicon-edit"> Edit</span> </a>
+                                        <a href="/Vendor/Delete?id=@item.vendor_Id" onclick="return confirm('Are You Sure to Delete Vendor?');" class="btn btn-danger btn-default"><span style="color:white" class="glyphicon glyphicon-trash"> Delete</span> </a>
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.box-body -->
+</div>  <!-- /.box -->

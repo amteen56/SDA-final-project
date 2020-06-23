@@ -1,0 +1,101 @@
+﻿@model HabeebFootwear.Models.Vendor
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Create","Vendor",FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="box box-success">
+        <div class="box-header with-border">
+            <h2 style="color:green;">Create</h2>
+            <h3 class="box-title">Vendors</h3>
+        </div>
+        <div class="box-body">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        <label>Vendor Name</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.vendorName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.vendorName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                    <label>Vendor Company</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.vendorCompany, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.vendorCompany, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        <label>Vendor Contact No</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.vendorContactNo, new { htmlAttributes = new { @class = "form-control autoCompleteNum" , @maxlength = 11 , @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.vendorContactNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        <label>Vendor Address</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.vendorAddress, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.vendorAddress, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6" style="margin-top: 21px;">
+                    <button type="submit" class="btn btn-block btn-success btn-lg">Create</button>
+                </div>
+                <div class="col-lg-3"></div>
+        </div>
+                    </div>
+                    </div>
+        }
+                   
+
+    <script type="text/javascript">
+    $('.autoCompleteCNIC').keydown(function () {
+        $(this).val($(this).val().replace(/(\d{5})\-?(\d{7})\-?(\d{1})/, '$1-$2-$3'))
+    });
+
+    $('.autoCompleteNum').keydown(function () {
+        if ($(this).val().length > 9) {
+            $(this).val($(this).val().replace(/(\d{4})\-?(\d{7})/, '$1-$2'))
+        }
+        //$(this).val($(this).val().replace(/(\d{4})\-?(\d{7})/, '$1-$2'))
+    });
+
+    $('.hide').hide(0);
+
+    $(document).ready(function () {
+        $('.selection').change(function () {
+            var hasStates = $(this).find("option:selected").attr("Value");
+            if (hasStates == 'operation manager') {
+                $('.hide').show(250);
+            }
+            else {
+                $('.hide').hide(250);
+            }
+        });
+    });
+    </script>
