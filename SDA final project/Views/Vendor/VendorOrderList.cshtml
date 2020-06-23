@@ -1,0 +1,152 @@
+﻿@model IEnumerable<HabeebFootwear.Models.VendorOrder>
+
+@{
+    ViewBag.Title = "VendorOrderList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Vendor Orders</h2>
+<hr />
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Default Modal</h4>
+            </div>
+            <div class="modal-body">
+
+
+
+                @{
+
+
+                    <div class="target">
+
+                    </div>
+                    <div class="colors1">
+
+                    </div>
+
+                    <div class="quantity">
+
+                    </div>
+
+
+                }
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<table id="example1" class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Order ID
+            </th>
+
+            <th>
+                Vendor Name
+            </th>
+            <th>
+                Date Of Order
+            </th>
+            <th>
+                Total Amount
+            </th>
+            <th>
+                Amount Remaining
+            </th>
+            <th>
+                Total Shoes Quantity
+            </th>
+            <th>
+                Payment Status
+            </th>
+            <th>
+                Payment Mode
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vendorOrder_Id)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vendor.vendorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dateOfOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.totalAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.amountRemaining)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.totalQty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.paymentStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.paymentMode)
+                </td>
+                <td>
+                    <button class="btn btn-primary" onclick="rrr(@item.vendorOrder_Id)">Details</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+
+    function rrr(id) {
+
+        $(function () {
+            $('.quantity').html('');
+
+            $('.colors1').html('');
+
+            $('.target').load('/vendor/VendorOrderDetails/'+ id, function (responseText, textStatus, XMLHttpRequest) {
+                if (textStatus == "success") {
+                    // all good!
+
+
+                    $('#modal-default').modal('toggle');
+                   // $('.flat-red').iCheck({ checkboxClass: 'icheckbox_flat-green', radioClass: 'iradio_flat-green' });
+                }
+                if (textStatus == "error") {
+                    // oh noes!
+                }
+            });
+
+
+
+
+
+
+
+        });
+    }
+</script>
