@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using SDA_final_project.Models;
 using SDA_final_project.Miscellaneous;
-//using SDA_final_project.View_Modals;
 using WebMatrix.WebData;
 using System.Web.Security;
 
@@ -24,7 +23,7 @@ namespace SDA_final_project.Controllers
             if (WebSecurity.IsAuthenticated)
             {
 
-                if (Roles.GetRolesForUser(WebSecurity.CurrentUserName)[0].Equals("headOffice"))
+                if (Roles.GetRolesForUser(WebSecurity.CurrentUserName)[0].Equals("ho"))
                 {
                     var Vendnor_List = (from a in habib.Vendors select a).ToList();
                     ViewBag.Vendor = "active";
