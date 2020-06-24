@@ -1,0 +1,258 @@
+﻿@model HabeebFootwear.View_Modals.VendorOrderViewModel
+
+@{
+    ViewBag.Title = "CreateOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("CreateOrder", "Vendor", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="box box-success">
+        <div class="box-header with-border">
+            <h4>Vendor Order Details</h4>
+        </div>
+        <div class="box-body">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <Label class="control-label col-md-2">Order Date</Label>
+                    <div class="col-md-10">
+                        <input type="text" name="dateOfOrder" value="@DateTime.Now.ToShortDateString()" id="datepicker" class="form-control" required/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Select Vendor</label>
+                    <div class="col-md-10">
+
+                        <select class="form-control" name="venID">
+                            @foreach (var item in Model.vendorsList)
+                            {
+                                <option value="@item.vendor_Id">@item.vendorName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box box-succes">
+        <div class="box-header with-border">
+            <h3>Shoes Details</h3>
+        </div>
+        <div class="box-body">
+            <div class="form-horizontal">
+                <section>
+                    <div class="wizard">
+                        <div class="wizard-inner">
+                            <div class="connecting-line"></div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                                        <span class="round-tab">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li role="presentation" class="disabled">
+                                    <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+                                        <span class="round-tab">
+                                            <i class="glyphicon glyphicon-th"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li role="presentation" class="disabled">
+                                    <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
+                                        <span class="round-tab">
+                                            <i class="glyphicon glyphicon-tint"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li role="presentation" class="disabled">
+                                    <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                                        <span class="round-tab">
+                                            <i class="glyphicon glyphicon-ok"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <form role="form">
+                            <div class="tab-content">
+                                <div class="tab-pane active" role="tabpanel" id="step1">
+                                    <h2 class="text-center">Shoe Article Selection</h2>
+                                    <label id="error1" class="text-center col-md-12" style="color:red;"></label>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">No. of shoes</label>
+                                        <div class="col-md-8">
+                                            <input type="number" id="shoesNo" placeholder="Select No of shoes" class="form-control" required />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="button" name="name" value="Add" onclick="checkShoesNo()" class="btn btn-primary btn-block" />
+                                        </div>
+                                    </div>
+                                    <table class="table table-striped" id="articleTbl">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Shoe Article</th>
+                                                <th>Shoe Cost</th>
+                                                <th>Variety</th>
+                                                <th>No Of Sizes</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody class="shoe_form"></tbody>
+
+                                    </table>
+
+                                    <ul class="list-inline pull-right">
+                                        <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane" role="tabpanel" id="step2">
+                                    <h2 class="text-center">Size Details</h2>
+                                    <label id="error2" class="text-center col-md-12" style="color:red;"></label>
+                                    <table class="table table-striped" id="sizeTbl">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Shoe Article</th>
+                                                <th>Size #</th>
+                                                <th>No Of Colors</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="size_form"></tbody>
+
+                                    </table>
+
+                                    <ul class="list-inline pull-right">
+                                        <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                        <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane" role="tabpanel" id="step3">
+                                    <h2 class="text-center">Color and Quantity</h2>
+                                    <label id="error3" class="text-center col-md-12" style="color:red;"></label>
+                                    <table class="table table-striped" id="colorTbl">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Shoe Article</th>
+                                                <th>Size #</th>
+                                                <th>Color</th>
+                                                <th>Quantity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="color_form"></tbody>
+
+                                    </table>
+
+                                    <ul class="list-inline pull-right">
+                                        <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                        <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane" role="tabpanel" id="complete">
+                                    <h2 class="text-center">Payment Step</h2>
+                                    <div class="box-header">
+                                        <div class="form-group has-success">
+                                            <div class="input-group input-group-lg col">
+                                                <span class="input-group-addon">Amount</span>
+                                                <input type="number" min="1" class="form-control" name="total" value="" placeholder="Enter payment amount here" required />
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <h3 class="col-md-offset-0">Select payment way</h3>
+                                        <br />
+                                        <div class="form-group">
+                                            <div class="col-md-6 text-center">
+                                                <label>
+                                                    <input type="radio" class="flat-red" name="mode" value="1" required />
+                                                    Full payment now
+                                                </label>
+
+                                            </div>
+                                            <div class="col-md-6 text-center">
+                                                <label>
+                                                    <input type="radio" class="flat-red" name="mode" value="2" />
+                                                    Parial payment
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="pay-now">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Payment method</span>
+                                                    <select id="dropdown" name="payment_method" class="form-control col-md-10 hello">
+                                                        <option value="cash">Cash</option>
+                                                        <option value="card">Card</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pay-partial">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">No. of partial payments</label>
+                                                <div class="col-md-8">
+                                                    <input type="number" id="paymentNo" placeholder="Select No of payments" class="form-control" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="button" name="name" value="Add" onclick="checkPaymentNo()" class="btn btn-primary btn-block" />
+                                                </div>
+                                            </div>
+                                            <table class="table table-striped" id="payments">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Payment Date</th>
+                                                        <th>Payment Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="payment_form"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="text-center col-md-12">
+                                            <input type="submit" id="finishBtn" value="Finish Order" class="btn btn-block btn-primary" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div></div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <datalist id="shoes">
+            @foreach (var item in Model.shoesList)
+            {
+                <option value="@item.shoeArticle"></option>
+            }
+        </datalist>
+
+        <datalist id="sizes">
+            @foreach (var item in Model.sizesList)
+            {
+                <option value="@item.sizeNo"></option>
+            }
+        </datalist>
+
+        <datalist id="colors">
+            @foreach (var item in Model.colorsList)
+            {
+                <option value="@item.colorName"></option>
+            }
+        </datalist>
+    </div>
+
+    <script src="~/Scripts/Wizard-Form.js"></script>
+}

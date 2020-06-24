@@ -1,0 +1,46 @@
+﻿@model IEnumerable<HabeebFootwear.Models.VendorOrder_ShoeSizeColor>
+
+@{
+    ViewBag.Title = "VendorOrderList";
+    Layout = null;
+}
+<table class="table table-striped">
+    <tr>
+        <th>
+            Article Number
+        </th>
+
+        <th>
+            Size
+        </th>
+        <th>
+            Color
+        </th>
+        <th>Quantity</th>
+        <th>
+            Cost
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Shoe_Size_Color.Shoe_Size.Shoe.shoeArticle
+            </td>
+            <td>
+                @item.Shoe_Size_Color.Shoe_Size.Size.sizeNo
+            </td>
+            <td>
+                @item.Shoe_Size_Color.Color.colorName
+            </td>
+            <td>
+                @item.quantity
+            </td>
+            <td>
+                @item.cost
+            </td>
+        </tr>
+    }
+
+</table>

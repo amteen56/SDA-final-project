@@ -1,0 +1,171 @@
+﻿@model IEnumerable<HabeebFootwear.Models.CustomerOrder>
+@{
+    ViewBag.Title = "Sales";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    tfoot {
+        display: table-header-group;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        table thead tfoot td {
+            border: 1px solid #eeeeee;
+        }
+</style>
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Default Modal</h4>
+            </div>
+            <div class="modal-body">
+
+
+
+                @{
+
+
+                    <div class="target">
+
+                    </div>
+                    <div class="colors1">
+
+                    </div>
+
+                    <div class="quantity">
+
+                    </div>
+                }
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box box-primary">
+    <div class="box-header with-border" style="padding-bottom:0px;">
+        <div class="jumbotron" style="padding-bottom:0px;padding-top:0px; background-color:white;">
+            <center>
+                <h2 style="font-family:Arial;font-size:35px;font-weight:bold;">Sales List</h2>
+
+            </center>
+        </div>
+    </div>
+</div>
+
+<div class="box-body">
+    <div class="table-responsive">
+        <div class="col-md-12">
+            <table name="example" id="example" class="display" width="100%" cellspacing="0">
+                <tfoot>
+                    <tr>
+                        <th>Order Id</th>
+                        <th>Outlet Name</th>
+                        <th>Employee Id</th>
+                        <th>Customer Name</th>
+                        <th>Total Price</th>
+                        <th>Order Date</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                <thead>
+                    <tr>
+                        <th>Order Id</th>
+                        <th>Outlet Name</th>
+                        <th>Employee Id</th>
+                        <th>Customer Name</th>
+                        <th>Total Price</th>
+                        <th>Order Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.customerOrder_Id</td>
+                            <td>@item.outletName</td>
+                            <td>@item.employee_Id</td>
+                            <td>@item.customerName</td>
+                            <td>@item.finalAmount</td>
+                            <td>@item.dateOfOrder</td>
+                            <td>
+                                <button class="btn" onclick="detail(@item.customerOrder_Id)">Details</button>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    function detail(id) {
+
+        $(function () {
+            $('.quantity').html('');
+
+            $('.target').load('/Sales/Details/' + id, function (responseText, textStatus, XMLHttpRequest) {
+                if (textStatus == "success") {
+                    // all good!
+
+
+                    $('#modal-default').modal('toggle');
+                    $('.flat-red').iCheck({ checkboxClass: 'icheckbox_flat-green', radioClass: 'iradio_flat-green' });
+                }
+                if (textStatus == "error") {
+                    alert(responseText);
+                }
+            });
+
+        });
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#example thead th').each(function () {
+            var title = $('#example tfoot th').eq($(this).index()).text();
+            $(this).html('<input type="text" style="width:100%;" placeholder="Search ' + title + '">');
+        });
+
+        // DataTable
+        var table = $('#example').DataTable();
+
+        // Apply the search
+        table.columns().eq(0).each(function (colIdx) {
+            $('input', table.column(colIdx).header()).on('keyup change', function () {
+                table
+                    .column(colIdx)
+                    .search(this.value)
+                    .draw();
+            });
+        });
+    });
+
+</script>
+
+
+

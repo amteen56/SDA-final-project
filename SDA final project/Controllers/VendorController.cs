@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SDA_final_project.Models;
 using SDA_final_project.Miscellaneous;
+using SDA_final_project.View_Modals;
 using WebMatrix.WebData;
 using System.Web.Security;
 
@@ -15,7 +16,7 @@ namespace SDA_final_project.Controllers
         // Habib habib = new Habib();
 
         //use this code for every....
-       Habib habib = new Habib();
+        Habib habib = new Habib();
         // GET: Vendor
         public ActionResult Index()
         {
@@ -23,7 +24,7 @@ namespace SDA_final_project.Controllers
             if (WebSecurity.IsAuthenticated)
             {
 
-                if (Roles.GetRolesForUser(WebSecurity.CurrentUserName)[0].Equals("ho"))
+                if (Roles.GetRolesForUser(WebSecurity.CurrentUserName)[0].Equals("headOffice"))
                 {
                     var Vendnor_List = (from a in habib.Vendors select a).ToList();
                     ViewBag.Vendor = "active";
@@ -105,6 +106,115 @@ namespace SDA_final_project.Controllers
             habib.SaveChanges();
             return RedirectToAction("Index", "Vendor");
         }
+
+        [HttpGet]
+        public ActionResult CreateOrder()
+        {
+
+            if (WebSecurity.IsAuthenticated)
+            {
+
+                if (Roles.GetRolesForUser(WebSecurity.CurrentUserName)[0].Equals("headOffice"))
+                {
+                    VendorOrderViewModel vendor_order = new VendorOrderViewModel();
+
+                    vendor_order.shoesList = (from a in habib.Shoes
+                                              select a).ToList();
+
+                    vendor_order.colorsList = (from a in habib.Colors
+                                               select a).ToList();
+
+                    vendor_order.sizesList = (from a in habib.Sizes
+                                              select a).ToList();
+
+                    vendor_order.vendorsList = (from a in habib.Vendors
+                                                select a).ToList();
+
+                    ViewBag.Orders = "active";
+                    ViewBag.orderDisplay = "block";
+                    ViewBag.createOrder = "active";
+
+                    return View(vendor_order);
+                }
+                else
+                {
+                    WebSecurity.Logout();
+                    return RedirectToAction("Outlet", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CreateOrder(VendorOrderViewModel model, FormCollection form)
+        {
+            vendorOrderDataHandler handler = new vendorOrderDataHandler();
+            string date = form["dateOfOrder"];
+
+            int vendorId = Convert.ToInt32(form["venID"]);
+
+            int totalAmount = Convert.ToInt32(form["total"]);
+
+            string payMode = form["mode"];
+
+            string paymentMethod = form["payment_method"];
+
+            handler.addNewShoes(model.shoesToAdd, model.shoesCost, model.varieties, Convert.ToDateTime(date));
+            handler.addNewSizes(model.sizesToAdd);
+            handler.addNewColors(model.colors);
+            handler.addShoeSize(model.shoes, model.sizes);
+            handler.addShoeSizeColor(model.shoes, model.sizes, model.colors, model.qty);
+
+
+            if (payMode == "1")
+            {
+
+                VendorOrder order = new VendorOrder()
+                {
+                    vendor_Id = vendorId,
+                    dateOfOrder = Convert.ToDateTime(date),
+                    paymentMode = paymentMethod,
+                    paymentStatus = "Paid",
+                    totalAmount = totalAmount,
+                    amountRemaining = 0,
+                    totalQty = handler.getTotalQuantity(model.qty),
+                    paymentType = "Full"
+
+                };
+                habib.VendorOrders.Add(order);
+                habib.SaveChanges();
+
+                handler.addVendorOrderListDetails(order.vendorOrder_Id, model.shoes, model.sizes, model.colors, model.qty);
+
+                handler.addPayment(order.vendorOrder_Id, totalAmount, Convert.ToDateTime(date));
+            }
+            else if (payMode == "2")
+            {
+                VendorOrder order = new VendorOrder()
+                {
+                    vendor_Id = vendorId,
+                    dateOfOrder = Convert.ToDateTime(date),
+                    paymentMode = paymentMethod,
+                    paymentStatus = "Partial Paid",
+                    totalAmount = totalAmount,
+                    amountRemaining = totalAmount,
+                    totalQty = handler.getTotalQuantity(model.qty),
+                    paymentType = "Partial"
+                };
+                habib.VendorOrders.Add(order);
+                habib.SaveChanges();
+
+                handler.addVendorOrderListDetails(order.vendorOrder_Id, model.shoes, model.sizes, model.colors, model.qty);
+
+                handler.addPartialPayments(order.vendorOrder_Id, model.remainings);
+            }
+
+            return RedirectToAction("CreateOrder", "Vendor");
+        }
+
         public ActionResult VendorOrderList()
         {
 

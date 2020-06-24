@@ -1,0 +1,55 @@
+﻿@model HabeebFootwear.View_Modals.SalesDetailsViewModel
+@{
+                /**/
+
+                Layout = null;
+}
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Shoe Id
+        </th>
+        <th>
+            Article Number
+        </th>
+
+        <th>
+            Size
+        </th>
+        <th>
+            Color
+        </th>
+        <th>
+            Price
+        </th>
+        <th>Quantity</th>
+
+    </tr>
+
+    @foreach (var item in Model.listdetails)
+    {
+    <tr>
+        <td>
+            @item.Item1
+        </td>
+        <td>
+            @item.Item2
+        </td>
+        <td>
+            @item.Item3
+        </td>
+        <td>
+            @item.Item4
+        </td>
+        <td>
+            @item.Item5
+        </td>
+        <td>
+            @item.Item6
+        </td>
+    </tr>
+    }
+
+</table>
+
