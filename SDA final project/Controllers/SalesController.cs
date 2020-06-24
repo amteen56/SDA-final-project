@@ -41,9 +41,9 @@ namespace SDA_final_project.Controllers
                 int termp2 = Convert.ToInt32(Miscellaneous.HabibDataClass.Habib.Shoe_Size.Where(c => c.shoeSize_Id == termp).FirstOrDefault().shoe_Id);
                 int termp3 = Convert.ToInt32(Miscellaneous.HabibDataClass.Habib.Shoe_Size.Where(c => c.shoeSize_Id == termp).FirstOrDefault().size_Id);
                 string shoesname = Miscellaneous.HabibDataClass.Habib.Shoes.Where(c => c.shoe_Id == termp2).FirstOrDefault().shoeArticle;
-                string sizeno = Miscellaneous.HabibDataClass.Habib.Sizes.Where(c => c.size_Id == termp2).LastOrDefault().sizeNo.ToString();
-                string Colorname = Miscellaneous.HabibDataClass.Habib.Colors.Where(c => c.color_Id == termp2).FirstOrDefault().colorName.ToString();
-                string shoeprice = Miscellaneous.HabibDataClass.Habib.Shoes.Where(c => c.shoe_Id == termp1).FirstOrDefault().shoePrice.ToString();
+                string sizeno = Miscellaneous.HabibDataClass.Habib.Sizes.Where(c => c.size_Id == termp3).FirstOrDefault().sizeNo.ToString();
+                string Colorname = Miscellaneous.HabibDataClass.Habib.Colors.Where(c => c.color_Id == termp1).FirstOrDefault().colorName.ToString();
+                string shoeprice = Miscellaneous.HabibDataClass.Habib.Shoes.Where(c => c.shoe_Id == termp2).FirstOrDefault().shoePrice.ToString();
                 int qty = Convert.ToInt32(Miscellaneous.HabibDataClass.Habib.ShoeSizeColor_CustomerOrder.Where(c => c.customerOrder_Id == id).FirstOrDefault().quantity);
                 var tuple = new Tuple<string, string, string, string, string, int>(termp2.ToString(), shoesname, sizeno, Colorname, shoeprice, qty);
                 obj.listdetails.Add(tuple);
