@@ -172,6 +172,7 @@
     <Compile Include="Models\webpages_OAuthMembership.cs" />
     <Compile Include="Models\webpages_Roles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View_Modals\SalesDetailsViewModel.cs" />
     <Compile Include="View_Modals\VendorOrderViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -7243,6 +7244,8 @@
     <Content Include="Views\Vendor\Order.cshtml" />
     <Content Include="Views\Vendor\VendorOrderDetails.cshtml" />
     <Content Include="Views\Vendor\VendorOrderList.cshtml" />
+    <Content Include="Views\Sales\Details.cshtml" />
+    <Content Include="Views\Sales\Sales.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
