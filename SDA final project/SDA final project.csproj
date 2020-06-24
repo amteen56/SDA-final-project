@@ -138,6 +138,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OutletController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
@@ -7246,6 +7247,9 @@
     <Content Include="Views\Vendor\VendorOrderList.cshtml" />
     <Content Include="Views\Sales\Details.cshtml" />
     <Content Include="Views\Sales\Sales.cshtml" />
+    <Content Include="Views\Outlet\Index.cshtml" />
+    <Content Include="Views\Outlet\Quantity.cshtml" />
+    <Content Include="Views\Outlet\Warehouse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

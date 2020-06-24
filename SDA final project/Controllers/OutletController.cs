@@ -1,31 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using SDA_final_project.View_Modals;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using SDA_final_project.Models;
 using WebMatrix.WebData;
 
 namespace SDA_final_project.Controllers
 {
-    public class OutletController : Controller
+    public class OrderController : Controller
     {
-        Models.Habib h = new Habib();
-
-
-        public ActionResult Index()
+        // GET: Order
+        public ActionResult OrderHistory()
         {
             if (WebSecurity.IsAuthenticated)
             {
 
-                if (Roles.GetRolesForUser(WebSecurity.CurrentUserName)[0].Equals("headOffice"))
+                if (Roles.GetRolesForUser(WebSecurity.CurrentUserName)[0].Contains("outlet"))
                 {
-                    ViewBag.outlet = "active";
-                    return View();
+                    ViewBag.history = "active";
+
+                    return View(Miscellaneous.HabibDataClass.Habib.CustomerOrders.Where(c => c.outletName == WebSecurity.CurrentUserName).ToList());
                 }
                 else
                 {
                     WebSecurity.Logout();
-                    return RedirectToAction("Outlet", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
             }
             else
@@ -33,15 +34,29 @@ namespace SDA_final_project.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-        public ActionResult Shoes(int id)
+        public ActionResult Details(int id)
         {
-            List<Outlet_ShoeSizeColor> shoe_Size_Colors = Miscellaneous.HabibDataClass.Habib.Outlet_ShoeSizeColor.Where(c => c.outlet_Id == id).ToList(); ;
-            return View(shoe_Size_Colors);
-        }
-        public ActionResult warehouseQuantity(string id)
-        {
-            List<Shoe_Size_Color> s = Miscellaneous.HabibDataClass.Habib.Shoe_Size_Color.Where(c => c.Shoe_Size.Shoe.shoeArticle.Equals(id)).ToList();
-            return View(s);
+            SalesDetailsViewModel obj = new SalesDetailsViewModel(); ;
+            var shoesize = Miscellaneous.HabibDataClass.Habib.ShoeSizeColor_CustomerOrder.Where(c => c.customerOrder_Id == id).ToList();
+            var shoesizeid = new List<int>();
+            var colorid = new List<int>();
+            foreach (var item in shoesize)
+            {
+                int termp = Convert.ToInt32(Miscellaneous.HabibDataClass.Habib.Shoe_Size_Color.Where(c => c.shoeSizeColor_Id == item.shoeSizeColor_Id).FirstOrDefault().shoeSize_Id);
+                shoesizeid.Add(termp);
+                int termp1 = Convert.ToInt32(Miscellaneous.HabibDataClass.Habib.Shoe_Size_Color.Where(c => c.shoeSizeColor_Id == item.shoeSizeColor_Id).FirstOrDefault().color_Id);
+                colorid.Add(termp1);
+                int termp2 = Convert.ToInt32(Miscellaneous.HabibDataClass.Habib.Shoe_Size.Where(c => c.shoeSize_Id == termp).FirstOrDefault().shoe_Id);
+                int termp3 = Convert.ToInt32(Miscellaneous.HabibDataClass.Habib.Shoe_Size.Where(c => c.shoeSize_Id == termp).FirstOrDefault().size_Id);
+                string shoesname = Miscellaneous.HabibDataClass.Habib.Shoes.Where(c => c.shoe_Id == termp2).FirstOrDefault().shoeArticle;
+                string sizeno = Miscellaneous.HabibDataClass.Habib.Sizes.Where(c => c.size_Id == termp3).FirstOrDefault().sizeNo.ToString();
+                string Colorname = Miscellaneous.HabibDataClass.Habib.Colors.Where(c => c.color_Id == termp1).FirstOrDefault().colorName.ToString();
+                string shoeprice = Miscellaneous.HabibDataClass.Habib.Shoes.Where(c => c.shoe_Id == termp2).FirstOrDefault().shoePrice.ToString();
+                int qty = Convert.ToInt32(Miscellaneous.HabibDataClass.Habib.ShoeSizeColor_CustomerOrder.Where(c => c.customerOrder_Id == id).FirstOrDefault().quantity);
+                var tuple = new Tuple<string, string, string, string, string, int>(termp2.ToString(), shoesname, sizeno, Colorname, shoeprice, qty);
+                obj.listdetails.Add(tuple);
+            }
+            return View(obj);
         }
     }
 }

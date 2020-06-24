@@ -1,0 +1,28 @@
+﻿@model IEnumerable<HabeebFootwear.Models.Outlet_ShoeSizeColor>
+
+
+<h1>@Model.First().Shoe_Size_Color.Shoe_Size.Shoe.shoeArticle</h1>
+<h2>Outlet : @Model.First().outlet_Id</h2>
+
+<table class="table table-striped">
+
+    <th> Size </th>
+    <th> Color </th>
+    <th> Quantity </th>
+
+    @{ foreach (HabeebFootwear.Models.Outlet_ShoeSizeColor x in Model)
+        {
+
+            <tr>
+
+                <td> @x.Shoe_Size_Color.Shoe_Size.Size.sizeNo </td>
+                <td>@x.Shoe_Size_Color.Color.colorName.ToString()</td>
+                <td> @x.quantity</td>
+            </tr>
+
+        }
+
+
+    }
+
+</table>
