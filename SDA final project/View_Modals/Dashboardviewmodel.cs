@@ -8,5 +8,7 @@ namespace SDA_final_project.View_Modals
     public class Dashboardviewmodel
     {
         public List<List<Tuple<int, int, int>>> salesdata { get; set; }
+        public int normalorders { get; set; }
+        public int customorders { get; set; }
     }
 }
