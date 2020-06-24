@@ -140,7 +140,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OutletController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
-    <Compile Include="Controllers\PointOfSaleController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Global.asax.cs">
@@ -174,9 +173,6 @@
     <Compile Include="Models\webpages_OAuthMembership.cs" />
     <Compile Include="Models\webpages_Roles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View_Modals\Dashboardviewmodel.cs" />
-    <Compile Include="View_Modals\posindex.cs" />
-    <Compile Include="View_Modals\posReciptModel.cs" />
     <Compile Include="View_Modals\SalesDetailsViewModel.cs" />
     <Compile Include="View_Modals\VendorOrderViewModel.cs" />
   </ItemGroup>
@@ -6612,6 +6608,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Theme\AdminLTE-2.4.13\.npmignore" />
     <Content Include="Theme\AdminLTE-2.4.13\bower.json" />
@@ -7252,11 +7250,8 @@
     <Content Include="Views\Outlet\Index.cshtml" />
     <Content Include="Views\Outlet\Quantity.cshtml" />
     <Content Include="Views\Outlet\Warehouse.cshtml" />
-    <Content Include="Views\Shared\_LayoutOutlet.cshtml" />
-    <Content Include="Views\PointOfSale\CustomOrder.cshtml" />
-    <Content Include="Views\PointOfSale\Index.cshtml" />
-    <Content Include="Views\PointOfSale\Receipt.cshtml" />
-    <Content Include="Views\Home\Outlet.cshtml" />
+    <Content Include="Views\Outlet\Shoes.cshtml" />
+    <Content Include="Views\Outlet\warehouseQuantity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
