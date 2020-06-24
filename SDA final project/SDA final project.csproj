@@ -7256,6 +7256,7 @@
     <Content Include="Views\PointOfSale\CustomOrder.cshtml" />
     <Content Include="Views\PointOfSale\Index.cshtml" />
     <Content Include="Views\PointOfSale\Receipt.cshtml" />
+    <Content Include="Views\Home\Outlet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
