@@ -173,6 +173,7 @@
     <Compile Include="Models\webpages_OAuthMembership.cs" />
     <Compile Include="Models\webpages_Roles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View_Modals\Dashboardviewmodel.cs" />
     <Compile Include="View_Modals\SalesDetailsViewModel.cs" />
     <Compile Include="View_Modals\VendorOrderViewModel.cs" />
   </ItemGroup>
@@ -6608,8 +6609,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Theme\AdminLTE-2.4.13\.npmignore" />
     <Content Include="Theme\AdminLTE-2.4.13\bower.json" />
