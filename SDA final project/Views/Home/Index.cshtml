@@ -1,31 +1,130 @@
-﻿@{
+﻿@model SDA_final_project.View_Modals.Dashboardviewmodel
+@{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script>
+    window.onload = function () {
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        var chart = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,
+            title: {
+                text: "@ViewBag.yes"
+            },
+            axisY: {
+                includeZero: false,
+                prefix: "Rs"
+            },
+            toolTip: {
+                shared: true
+            },
+            legend: {
+                fontSize: 13
+            },
+            data: [{
+                type: "splineArea",
+                showInLegend: true,
+                name: "Outlet_1",
+                yValueFormatString: "Rs#,##0",
+                xValueFormatString: "MMM YYYY",
+                dataPoints: [
+                @foreach(var a in Model.salesdata.ElementAt(0))
+                {
+                   @: { x: new Date(@a.Item1, @a.Item2), y:@a.Item3 },
+                }
+                ]
+            },
+            {
+                type: "splineArea",
+                showInLegend: true,
+                name: "Outlet_2",
+                yValueFormatString: "Rs#,##0",
+            dataPoints: [
+
+                    @foreach(var a in Model.salesdata.ElementAt(1))
+                {
+                   @: { x: new Date(@a.Item1, @a.Item2), y:@a.Item3 },
+                }
+                ]
+            }
+
+           ]
+        });
+        chart.render();
+
+    }
+</script>
+<div class="row" style="padding-left:1%;">
+    <div class="col-lg-8">
+        <div class="row">
+
+            <div class="box box-solid bg-green-gradient">
+                <div class="box-header">
+                    <i class="fa fa-calendar"></i>
+
+                    <h3 class="box-title">Calendar</h3>
+                    <!-- tools box -->
+                    <!-- /. tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <!--The calendar -->
+                    <div id="calendar" style="width: 100%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>@Model.normalorders</h3>
+
+                    <p>New Orders</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-blue">
+                <div class="inner">
+                    <h3>@Model.customorders</h3>
+
+                    <p>Custom Orders</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<div class="box box-solid bg-teal-gradient">
+    <div class="box-header">
+        <i class="fa fa-th"></i>
+
+        <h3 class="box-title">Sales Graph</h3>
+
+        <div class="box-tools pull-right">
+            <button type="button" class="btn bg-teal btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn bg-teal btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="box-body border-radius-none">
+        @*<div class="chart" id="line-chart" style="height: 250px;"></div>*@<div class="chart" id="chartContainer" style="height: 400px; width: 100%;"></div>
     </div>
 </div>
+<div id="chartContainer" style="height: 400px; width: 100%;"></div>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>

@@ -1,0 +1,95 @@
+﻿@model HabeebFootwear.View_Modals.posReciptModel
+
+@{ 
+    Layout = null;
+}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="~/Theme/AdminLTE-2.4.13/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Theme/AdminLTE-2.4.13/bower_components/font-awesome/css/font-awesome.min.css">
+
+    <script src="~/Theme/AdminLTE-2.4.13/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/Theme/AdminLTE-2.4.13/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h3>HabeebFootwear</h3>
+            <br />
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label class="control-label">Date. : @DateTime.Now.Date.ToShortDateString()</label>
+            </div>
+            <div class="col-sm-12">
+                <label class="control-label">Order No. : @Model.customerOrder.customerOrder_Id</label>
+            </div>
+            <div class="col-sm-12">
+                <label class="control-label">Customer Name : @Model.customerOrder.customerName</label>
+            </div>
+
+            <div class="col-sm-12">
+                <label class="control-label">Seller Name: @Model.EmpName</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12"><hr style="border:1px solid black" /></div>
+            <div class="col-sm-12">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Price(Rs)</th>
+                            <th>Total(Rs)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int i = 1;}
+                        @foreach (var item in Model.shoeSizeColor_CustomerOrders)
+                        {
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.Shoe_Size_Color.Shoe_Size.Shoe.shoeArticle-@item.Shoe_Size_Color.Shoe_Size.Size.sizeNo-@item.Shoe_Size_Color.Color.colorName</td>
+                                <td>@item.quantity</td>
+                                <td>@item.price</td>
+                                <td>@Convert.ToInt32(item.price * item.quantity)</td>
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7"></div>
+            <div class="col-sm-5 pull-right">
+                <div class="row">
+                    <hr class="col-12" style="border:1px solid black" />
+                </div>
+                <label class="pull-right">Sub Total: @Model.customerOrder.totalAmount</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7"></div>
+            <div class="col-sm-5 pull-right">
+                <div class="row">
+                    <hr class="col-12" style="border:1px solid black" />
+                </div>
+                <label class="pull-right" style="font-style:oblique">Discount(Rs): @Model.customerOrder.discount</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7"></div>
+            <div class="col-sm-5 pull-right">
+                <div class="row">
+                    <hr class="col-12" style="border:1px solid black" />
+                </div>
+                <label class="pull-right" style="font-style:oblique">Total(Rs): @Model.customerOrder.finalAmount</label>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

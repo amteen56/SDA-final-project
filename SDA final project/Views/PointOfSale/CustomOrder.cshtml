@@ -1,0 +1,167 @@
+﻿@model HabeebFootwear.Models.CustomrOrder
+@{
+    ViewBag.Title = "CustomOrder";
+    Layout = "~/Views/Shared/_LayoutOutlet.cshtml";
+}
+
+
+
+
+@using (Html.BeginForm("CustomOrder", "PointOfSale", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <script>
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+    </script>
+    <div class="box box-success">
+        <div class="box-header with-border">
+            <h2 style="color:green;">Custom</h2>
+            <h3 class="box-title">Order</h3>
+        </div>
+        <div class="box-body">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        <label>Article No</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.articleNo, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.articleNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        <label>Shoe Size</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.size, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.size, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        <label>Color Name</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.colorName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.colorName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        <label>Discription</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        <label>Customer Name</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.customerName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.customerName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        <label>Customer Contact No</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.customerContactNo, new { htmlAttributes = new { @class = "form-control autoCompleteNum", @maxlength = 11, @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.customerContactNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        <label>Advance Payment</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.advance, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.advance, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        <label>Remaining Balance</label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.balance, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.balance, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-1"></div>
+                    <Label class="col-md-2"><label>Delivery Date</label></Label>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" name="dateofdelivery" id="datepicker" value="@DateTime.Now.ToShortDateString()" class="form-control" required>
+                        </div>
+                        @*<input type="text" name="dateofdelivery"  id="datepicker" class="form-control" required />*@
+                    </div>
+                </div>
+
+
+
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6" style="margin-top: 21px;">
+                    <button type="submit" class="btn btn-block btn-success btn-lg">Place Order</button>
+                </div>
+                <div class="col-lg-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/Wizard-Form.js"></script>
+
+}
+
+
+<script type="text/javascript">
+
+
+    $('.autoCompleteNum').keydown(function () {
+        if ($(this).val().length > 9) {
+            $(this).val($(this).val().replace(/(\d{4})\-?(\d{7})/, '$1-$2'))
+        }
+        //$(this).val($(this).val().replace(/(\d{4})\-?(\d{7})/, '$1-$2'))
+    });
+
+    $('.hide').hide(0);
+
+    $(document).ready(function () {
+        $('.selection').change(function () {
+            var hasStates = $(this).find("option:selected").attr("Value");
+            if (hasStates == 'operation manager') {
+                $('.hide').show(250);
+            }
+            else {
+                $('.hide').hide(250);
+            }
+        });
+    });
+</script>
