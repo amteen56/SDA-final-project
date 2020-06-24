@@ -140,6 +140,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OutletController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\PointOfSaleController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Global.asax.cs">
@@ -174,6 +175,8 @@
     <Compile Include="Models\webpages_Roles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View_Modals\Dashboardviewmodel.cs" />
+    <Compile Include="View_Modals\posindex.cs" />
+    <Compile Include="View_Modals\posReciptModel.cs" />
     <Compile Include="View_Modals\SalesDetailsViewModel.cs" />
     <Compile Include="View_Modals\VendorOrderViewModel.cs" />
   </ItemGroup>
@@ -7250,6 +7253,9 @@
     <Content Include="Views\Outlet\Quantity.cshtml" />
     <Content Include="Views\Outlet\Warehouse.cshtml" />
     <Content Include="Views\Shared\_LayoutOutlet.cshtml" />
+    <Content Include="Views\PointOfSale\CustomOrder.cshtml" />
+    <Content Include="Views\PointOfSale\Index.cshtml" />
+    <Content Include="Views\PointOfSale\Receipt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
