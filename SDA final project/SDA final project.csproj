@@ -7250,6 +7250,8 @@
     <Content Include="Views\Outlet\Index.cshtml" />
     <Content Include="Views\Outlet\Quantity.cshtml" />
     <Content Include="Views\Outlet\Warehouse.cshtml" />
+    <Content Include="Views\Outlet\Shoes.cshtml" />
+    <Content Include="Views\Outlet\warehouseQuantity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
