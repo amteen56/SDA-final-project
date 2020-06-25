@@ -1,0 +1,32 @@
+﻿
+@model IEnumerable<HabeebFootwear.Models.Shoe_Size_Color>
+@{
+    ViewBag.Title = "shoes";
+    Layout =null;
+}
+
+<h1>@Model.First().Shoe_Size.Shoe.shoeArticle</h1>
+
+
+<table class="table table-striped">
+
+    <th> Size </th>
+    <th> Color </th>
+    <th> Quantity </th>
+
+    @{ foreach (HabeebFootwear.Models.Shoe_Size_Color x in Model)
+        {
+
+            <tr>
+
+                <td> @x.Shoe_Size.Size.sizeNo </td>
+                <td>@x.Color.colorName.ToString()</td>
+                <td> @x.quantityInWH</td>
+            </tr>
+
+        }
+
+
+    }
+
+</table>

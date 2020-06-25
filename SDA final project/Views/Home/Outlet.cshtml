@@ -1,0 +1,114 @@
+﻿@model SDA_final_project.View_Modals.Dashboardviewmodel
+@{
+    ViewBag.Title = "OutletHome";
+    Layout = "~/Views/Shared/_LayoutOutlet.cshtml";
+}
+
+<script>
+    window.onload = function () {
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,
+            title: {
+                text: "@ViewBag.yes"
+            },
+            axisY: {
+                includeZero: false,
+                prefix: "Rs"
+            },
+            toolTip: {
+                shared: true
+            },
+            legend: {
+                fontSize: 13
+            },
+            data: [{
+                type: "splineArea",
+                showInLegend: true,
+                name: "Outlet_1",
+                yValueFormatString: "Rs#,##0",
+                xValueFormatString: "MMM YYYY",
+                dataPoints: [
+                @foreach(var a in Model.salesdata.ElementAt(0))
+                {
+                   @: { x: new Date(@a.Item1, @a.Item2), y:@a.Item3 },
+                }
+                ]
+            }        
+
+           ]
+        });
+        chart.render();
+
+    }
+</script>
+<div class="row" style="padding-left:1%;">
+    <div class="col-lg-8">
+        <div class="box box-solid bg-green-gradient">
+            <div class="box-header">
+                <i class="fa fa-calendar"></i>
+
+                <h3 class="box-title">Calendar</h3>
+                <!-- tools box -->
+               
+                <!-- /. tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <!--The calendar -->
+                <div id="calendar" style="width: 100%"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>@Model.normalorders</h3>
+
+                <p>New Orders</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-bag"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-blue">
+            <div class="inner">
+                <h3>@Model.customorders</h3>
+
+                <p>Custom Orders</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-bag"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+</div>
+<div class="box box-solid bg-teal-gradient">
+    <div class="box-header">
+        <i class="fa fa-th"></i>
+
+        <h3 class="box-title">Sales Graph</h3>
+
+        <div class="box-tools pull-right">
+            <button type="button" class="btn bg-teal btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn bg-teal btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="box-body border-radius-none">
+        @*<div class="chart" id="line-chart" style="height: 250px;"></div>*@<div class="chart" id="chartContainer" style="height: 400px; width: 100%;"></div>
+    </div>
+</div>
+<div id="chartContainer" style="height: 400px; width: 100%;"></div>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+

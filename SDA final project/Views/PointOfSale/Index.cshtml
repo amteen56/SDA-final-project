@@ -1,0 +1,325 @@
+﻿
+@model HabeebFootwear.View_Modals.posindex
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutOutlet.cshtml";
+}
+
+<h2>Point Of Sale</h2>
+
+
+
+
+<div class="box-body">
+    <div class="row">
+
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</div>
+
+
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="box box-danger">
+            <div class="box-header">
+                <h3 class="box-title">Sell</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Shoes</label>
+                            <select class="form-control select2" id="shoess" style="width: 100%;">
+                                <option>Please Select</option>
+                                @foreach (var shoe in Model.Shoeslist)
+                                {
+                                    <option>@shoe.shoeArticle</option>
+
+                                }
+                            </select>
+
+                            <script>
+                                $('#shoess').on('select2:select', function (e) {
+                                    //alert($('#shoess').select2('data')[0].text);
+                                    qwe($('#shoess').select2('data')[0].text);
+                                });
+                            </script>
+                        </div>
+
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Size</label>
+                            <select class="form-control select2" id="sizes" style="width: 100%;">
+                                <option>Please Select</option>
+                            </select>
+                            <script>
+                                $('#sizes').on('select2:select', function (e) {
+                                    //alert($('#sizes').select2('data')[0].text);
+                                    // alert('running');
+                                    twe($('#shoess').select2('data')[0].text, $('#sizes').select2('data')[0].text);
+                                });
+                            </script>
+                        </div>
+                        <!-- /.form-group -->
+                        <!-- /.form-group -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Color</label>
+                            <select class="form-control select2" id="colors" style="width: 100%;">
+                                <option>Please Select</option>
+                            </select>
+                        </div>
+                        <!-- /.form-group -->
+                        <!-- /.form-group -->
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Quantity</label>
+
+                            <input type="number" id="batch" value="1" style="width: 100%; padding-left:10px;">
+
+                        </div>
+                        <!-- /.form-group -->
+                        <!-- /.form-group -->
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>CustomerName</label>
+
+                            <input type="text" id="cname_sell" style="width: 100%; padding-left:10px;">
+
+                        </div>
+                        <!-- /.form-group -->
+                        <!-- /.form-group -->
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Employee Id</label>
+                            <select class="form-control select2" id="EmployeeId_sell" style="width: 100%;">
+                                @foreach (var emp in Model.Employeeids)
+                                {
+                                    <option>@emp.employee_Id</option>
+
+                                }
+                            </select>
+
+                        </div>
+                        <!-- /.form-group -->
+                        <!-- /.form-group -->
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Discount</label>
+
+                            <input type="number" value="0" id="Discount_sell" style="width: 100%; padding-left:10px;">
+
+                        </div>
+                        <!-- /.form-group -->
+                        <!-- /.form-group -->
+                    </div>
+                </div>
+
+                <!-- /.form-group -->
+                <!-- /.form-group -->
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+
+        <input type="button" value="Add" id="Add" class="btn btn-primary" style="width: 100%" />
+
+    </div>
+    <!-- /.col (left) -->
+    <div class="col-md-6">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">Check out</h3>
+            </div>
+            <div class="box-body">
+                <div id="items"></div>
+                
+
+                <hr />
+                <h3 class="pull-right" style="padding-right:50px;">Total : <span id="total"></span></h3>
+
+            </div>
+
+            <!-- /.box-body -->
+        </div>
+        <input type="button" value="Checkout" class="btn btn-success" onclick="checkout()" style="width:100%;"  />
+
+        <!-- /.box -->
+        <!-- iCheck -->
+        <!-- /.box -->
+    </div>
+    <!-- /.col (right) -->
+</div>
+
+<div class="row">
+    <div class="col"></div>
+</div>
+<script>
+
+    function qwe(id) {
+        //alert(id);
+        $.ajax(
+            {
+                url: "/pointofsale/getSizes/" + id,
+                type: "get"
+
+
+                , success: function (data) {
+                    //alert(data);
+                    $("#sizes").html(data);
+                }
+            });
+    }
+</script>
+
+<script>
+
+    document.getElementById("total").innerText = "0";
+
+    function checkout() {
+        var w = "";
+        var q = 0;
+        for ( q = 0; q < window.array.length; q++) {
+            w += "articles=" + window.array[q] + "&";
+        }
+
+        for ( q = 0; q < window.array1.length; q++) {
+            w += "sizes=" + window.array1[q] + "&";
+        }
+
+        for ( q = 0; q < window.array1.length; q++) {
+            w += "colors=" + window.array2[q] + "&";
+        }
+        for (q = 0; q < window.array1.length; q++) {
+            w += "quantity=" + window.array3[q] + "&";
+        }
+
+        w = w.substring(0, w.length - 1);
+
+
+        w += "&total=" + document.getElementById("total").innerText;
+        w += "&employeeid=" + document.getElementById("EmployeeId_sell").value;
+        w += "&discount=" + document.getElementById("Discount_sell").value;
+        w += "&cname=" + document.getElementById("cname_sell").value;
+        //alert(w);
+
+
+        $.ajax({
+            url: '/pointofsale/checkout/?'+w,
+            type: "GET",
+            
+            
+            async: false,
+            success: function (data) {
+                //alert(data);
+                window.open(
+                    data.newURL,
+                    'PRINT',
+                    'height=400,width=600'
+                ).print();
+                location.reload();
+            },
+            error: function (x, e) {
+                console.log(x.responseText);
+            }
+        });
+
+
+    }
+
+    function twe(id, colorid) {
+        //alert("/pointofsale/getColors/?id=" + id + "&sizeno=" + colorid);
+        $.ajax(
+            {
+                url: "/pointofsale/getColors/?id=" + id + "&sizeno=" + colorid,
+
+
+                type: "get"
+
+
+                , success: function (data) {
+                    //alert(data);
+                    $("#colors").html(data);
+                }
+            });
+    }
+</script>
+<script>
+    window.i = 0;
+    window.array = [];
+    window.array1 = [];
+    window.array2 = [];
+    window.array3 = [];
+    window.array4 = [];
+    $('#Add').click(function () {
+        var Article = $("#shoess option:selected").text();
+        var Size = $("#sizes option:selected").text();
+        var Color = $("#colors option:selected").text();
+        var vOId = $("#batch").val();
+        var eligible = 0;
+
+        $.ajax({
+            url: "/pointofsale/getstausamount/?" + "a=" + Article + "&s=" + Size + "&c=" + Color,
+            type: "get",
+            async: false,
+            success: function (data) {
+                eligible = data;
+            },
+            error: function (x, e) {
+                console.log(x.responseText);
+            }
+        });
+        if (eligible >= vOId) {
+        window.array[window.i] = Article;
+        window.array1[window.i] = Size;
+        window.array2[window.i] = Color;
+        window.array3[window.i] = vOId;
+        //alert(vOId);
+            
+        $.ajax({
+            url: "/pointofsale/getprice/" + Article,
+            type: "get",
+            async: false,
+            success: function (data) {
+               
+                window.array4[window.i] = data;
+                
+            }
+
+        });
+        
+        var tt = [];
+        $('#items').append('<div class="row"><div class="col-md-4"><div class="row"><label class="col-md-12">Article No: "' + Article + '" </label></div><div class="row"> <label class="col-md-12">Size: "' + Size + '" </label></div><div class="row"><label class="col-md-12">Color: "' + Color + '" </label></div></div><div class="col-md-4"></div><div class="col-md-4"><div class="row"><label class="col-md-12">Price x Quantity</label></div><div class="row"><label class="col-md-12">' + window.array4[window.i] + ' x ' + vOId + '</label></div></div></div></br>');
+
+        for (var a = 0; a <= window.i ; a++){
+            tt[a] = window.array3[a] * window.array4[a];
+        }
+
+        var sum = 0;
+
+        for (var a = 0; a <= window.i; a++) {
+            sum += tt[a];
+        }
+        document.getElementById('total').innerText = sum;
+        }
+        else {
+            alert("Required Quanity Not Avaliable in Outlet");
+        }
+        window.i++;
+        });
+</script>
