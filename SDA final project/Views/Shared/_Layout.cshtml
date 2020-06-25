@@ -127,7 +127,98 @@
                         </a>
                     </li>
 
-                   
+                    <li class="treeview @ViewBag.Orders " style="height: auto;">
+                        <a href="#">
+                            <i class="fa fa-industry"></i> <span>Vendor Orders</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu" style="display: @ViewBag.orderDisplay;">
+                            <li class="@ViewBag.createOrder"><a href="/Vendor/CreateOrder"><i class="fa fa-circle-o"></i> Create Order</a></li>
+                            <li class="@ViewBag.orderList"><a href="/Vendor/VendorOrderList"><i class="fa fa-circle-o"></i> Order List</a></li>
+                            <li class="@ViewBag.payments"><a href="#"><i class="fa fa-circle-o"></i> Payments</a></li>
+
+                        </ul>
+                    </li>
+
+
+                    <li class="@ViewBag.sales">
+                        <a href="/Sales/Sales">
+                            <i class="fa fa-dashboard"></i> <span>Sales List</span>
+                            <span class="pull-right-container">
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="treeview @ViewBag.transfer " style="height: auto;">
+                        <a href="#">
+                            <i class="fa fa-industry"></i> <span>Transfers</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu" style="display: @ViewBag.orderDisplaya;">
+                            <li class="@ViewBag.createTransfer"><a href="/transfer/createtransfer/1"><i class="fa fa-circle-o"></i> Create Transfer</a></li>
+                            <li class="@ViewBag.viewTransfers"><a href="/transfer/ViewTransfer"><i class="fa fa-circle-o"></i> View Transfers</a></li>
+
+                        </ul>
+                    </li>
+
+
+
+                    <li class="treeview @ViewBag.Vendor " style="height: auto;">
+                        <a href="#">
+                            <i class="fa fa-industry"></i> <span>Vendor</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu" style="display: @ViewBag.vlistDisplay;">
+                            <li class="@ViewBag.vlist"><a href="/Vendor"><i class="fa fa-circle-o"></i> Vendor List</a></li>
+                            <li class="@ViewBag.vcreate"><a href="/Vendor/Create"><i class="fa fa-circle-o"></i> Create Vendor</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@ViewBag.Employee treeview" style="height: auto;">
+                        <a href="#">
+                            <i class="fa fa-user"></i> <span>Employee</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu" style="display: @ViewBag.elistDisplay;">
+                            <li class="@ViewBag.elist"><a href="/Employee"><i class="fa fa-circle-o"></i> Employee List</a></li>
+                            <li class="@ViewBag.ecreate"><a href="/Employee/Create"><i class="fa fa-circle-o"></i> Create Employee</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="@ViewBag.shoe">
+                        <a href="/shoe/shoes">
+                            <i class="glyphicon glyphicon-gift"></i> <span>Shoe</span>
+                            <span class="pull-right-container">
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="@ViewBag.outlet">
+                        <a href="/Outlet/index">
+                            <i class="glyphicon glyphicon-gift"></i> <span>Stock</span>
+                            <span class="pull-right-container">
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="@ViewBag.reports">
+                        <a href="/Outlet/index">
+                            <i class="glyphicon glyphicon-gift"></i> <span>Reports</span>
+                            <span class="pull-right-container">
+                            </span>
+                        </a>
+                    </li>
+
+
 
 
                 </ul>
@@ -138,12 +229,24 @@
         <div class="content-wrapper">
             <section class="content">
 
-                
+                @if (Convert.ToBoolean(TempData["fromAttendance"]) == true)
+                {
+                    if (Convert.ToBoolean(TempData["isMarked"]) == true)
+                    {
                         <div id="msg" class="alert alert-success" role="alert" runat="server" visible="false">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <strong>Success!</strong> Attendance saved!
                         </div>
-                  
+                    }
+                    else
+                    {
+                        <div id="msg" class="alert alert-danger" role="alert" runat="server" visible="false">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Failed!</strong> Attendance has already been marked!
+                        </div>
+                    }
+                }
+
 
                 @RenderBody()
 
